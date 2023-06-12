@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset ="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d327f4fe4a.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+      * {box-sizing: border-box;}
+
+      body {
+          background-color: papayawhip; 
+          padding-left:160px;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif, Helvetica, sans-serif;
+          background-image:url('back.jpg');
+      }
+
+      table{
+          table-layout:fixed;
+          width:100%;
+          letter-spacing: 2px;
+      }
+      .td a{
+          word-wrap: break-word;
+          width:"45%";
+      }
+      /* navbar styling */
+      nav{
+        position: fixed;
+        width: 100%;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background-color: #9FE2BF;
+        padding: 20px 10px;
+        z-index:1;
+      }
+      nav.sticky{
+        background: #306d4e;
+        padding: 13px 0;
+      }
+      nav .navbar{
+        max-width: fit-content;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+      }
+      nav .navbar .logo a{
+        font-weight: 500;
+        font-size: 35px;
+      }
+      nav.sticky .navbar .logo a{
+        color: #fff;
+      }
+      nav .navbar .menu{
+        display: flex;
+        position: relative;
+      }
+      nav .navbar .menu li{
+        list-style: none;
+        margin: 0 8px;
+      }
+      .navbar .menu a{
+        font-weight: 500;
+        transition: all 0.4s ease;
+        color: black;
+        text-align: center;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px; 
+        line-height: 25px;
+        border-radius: 4px;
+      }
+      .navbar .menu a:hover{
+        color: purple;
+      }
+      nav.sticky .menu a{
+        color: #FFF;
+      }
+      nav.sticky .menu a:hover{
+        color: #0E2431;
+      }
+      .navbar .media-icons a{
+        color: #4070f4;
+        font-size: 18px;
+        margin: 0 6px;
+      }
+      nav.sticky .media-icons a{
+        color: #FFF;
+      }
+
+      /* Side Navigation Menu Button CSS */
+      nav .menu-btn,
+      .navbar .menu .cancel-btn{
+        position: absolute;
+        color: #fff;
+        right: 30px;
+        top: 20px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: none;
+      }
+      nav .menu-btn{
+        color: #4070f4;
+      }
+      nav.sticky .menu-btn{
+        color: #FFF;
+      }
+      .navbar .menu .menu-btn{
+        color: #fff;
+      }
+
+      .sidenav {
+        height:100%;
+        float:left;
+        width: 160px;
+        position: fixed;
+        overflow: auto;
+        z-index: 1;
+        top: 8px;
+        left: 8px;
+        background-color: pink;
+        padding-top: 20px;
+      }
+
+      .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: black;
+        display: block;
+      }
+
+      .sidenav a:hover {
+        color: #9FE2BF;
+        background-color:#566573;
+      }
+
+      .main {
+        margin-left: 280px; /* Same as the width of the sidenav */
+        font-size: 10px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+      }
+
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 50px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+      .footer{
+        width:100%;
+        height:200px;
+        padding-right: 100px;
+        background: #333;
+        color: #efefef;
+        display:flex;
+      }
+      .footer div{
+        text-align:center;
+        color: #9FE2BF;
+      }
+      .col-2{
+        flex-grow:2;
+      }
+      .footer div h3{
+        font-weight:300;
+        margin-bottom:20px;
+        letter-spacing:1px;
+          color:pink;
+      }
+
+      .social-icons{
+        margin-top:20px;
+      }
+      .social-icons i{
+        font-size:22px;
+        margin:10px;
+        cursor:pointer;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Style inputs */
+      input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+
+      input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      input[type=submit]:hover {
+        background-color: #45a049;
+      }
+
+      /* Style the container/contact section */
+      .container {
+        border-radius: 5px;
+        background-color: #9FE2Bf;
+        padding: 10px;
+      }
+
+      /* Create two columns that float next to eachother */
+      .column {
+        float: left;
+        width: 50%;
+        margin-top: 6px;
+        padding: 20px;
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+      @media screen and (max-width: 600px) {
+        .column, input[type=submit] {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+          background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+          background: plum;
+          border-radius: 12px;
+          transition: all 0.3s ease;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+          background: purple;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="navbar">
+        <div class="logo"><a href="#logo"><img src="C:\Users\kmt\Desktop\Assignment 3-ICT_1920_116\cake logo.png"  width="75" height="75" alt=logo></a></div>
+        <ul class="menu">
+          <li><a class="active" href="#home">Home</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidenav">
+      <a href="#services">Products & Services</a>
+      <a href="#projects">Projects & Achievements</a>
+    </div>
+
+    <div id="logo" class="logo">
+      <!-- logo section content -->
+      <div class="home">
+        <table style="padding-top: 125px;">
+            <tr>
+                <td width="55%"><img src="person.png"></td>
+                <td class="a"><p style="font-size: 45px;font-weight: bold">I'm Inuli.<br><br><pr style="background-color: dimgray;font-size: 45px;font-weight: bold;">A Cake Designer</pr><br><br><pr style="color:#566573;font-size: 45px;font-weight: bold;">based in Sri Lanka.</pr>
+                <br><p style="font-size: 20">fresh baked cake and more we've scooped up the most unique and stunning cake...</p><br>
+                <p style="font-size: 10">I really love what I do and it gives me great pleasure to use my creative side to design completely individual and bespoke wedding and celebration cakes.
+                  There is nothing better than opening up a cake box and seeing the look of delight on a customer’s face when they see their cake for the first time or a bride letting you know that her wedding cake was exactly what she had wanted.
+                  </p>
+                </td>
+            </tr>
+        </table>
+      </div>
+
+    <div id="home" class="home">
+      <!-- home section content -->
+      <div class="home">
+        <table style="padding-top: 125px;">
+            <tr>
+                <td width="55%"><img src="person.png"></td>
+                <td class="a"><p style="font-size: 45px;font-weight: bold">I'm Inuli.<br><br><pr style="background-color: dimgray;font-size: 45px;font-weight: bold;">A Cake Designer</pr><br><br><pr style="color:#566573;font-size: 45px;font-weight: bold;">based in Sri Lanka.</pr>
+                <br><p style="font-size: 20">fresh baked cake and more we've scooped up the most unique and stunning cake...</p><br>
+                <p style="font-size: 10">I really love what I do and it gives me great pleasure to use my creative side to design completely individual and bespoke wedding and celebration cakes.
+                  There is nothing better than opening up a cake box and seeing the look of delight on a customer’s face when they see their cake for the first time or a bride letting you know that her wedding cake was exactly what she had wanted.
+                  </p>
+                </td>
+            </tr>
+        </table>
+      </div>
+
+    <div id="services" class="services" style="padding-top:80px">
+      <!-- product and services section content -->
+      <div class="Services">
+        <div style="text-align:left">
+          <br><h1 style="background-color: #9FE2BF;">Products & Services</h1>
+        </div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <table>
+                <tr>
+                  <td><img src="Madagascan Vanilla.jpg" width="300" height="400"></td>
+                  <td style="padding-right: 160px;">Madagascan vanilla cake is a delectable dessert that showcases the rich, aromatic flavors of vanilla sourced from Madagascar. This cake is known for its moist and tender texture, as well as its irresistible taste.
+
+                    <br><br>The key ingredient that sets Madagascan vanilla cake apart is the vanilla extract or vanilla bean sourced from Madagascar. Madagascar is renowned for producing some of the world's finest and most flavorful vanilla beans,
+                     which are highly prized for their intense and sweet aroma. The vanilla
+                     is incorporated into the cake batter, infusing it with a distinct and heavenly vanilla fragrance.</td>
+                </tr>
+                <h3>Madagascan Vanilla Cake</h3>
+              </table>
+            </div>
+            <div class="swiper-slide">
+              <table>
+                <tr>
+                  <td><img src="Rich Chocolate Fudge Cake.jpg" width="300" height="400"></td>
+                  <td style="padding-right: 160px;">Rich Chocolate Fudge Cake is a decadent and indulgent dessert that is beloved by chocolate lovers around the world. This cake is known for its intense chocolate flavor, moist and dense texture, and a 
+                    luscious fudge-like consistency.
+
+                    <br><br>The base of the cake is typically made from a rich chocolate batter, which is achieved by using high-quality cocoa powder or melted dark chocolate. The cocoa powder or chocolate is mixed with flour, sugar, eggs, butter, and other 
+                    ingredients to create a smooth and velvety batter. Sometimes, additional ingredients like coffee or vanilla extract are added to enhance the chocolate flavor.</td>
+                </tr>
+                <h3>Rich Chocolate Fudge Cake</h3>
+              </table>
+            </div>
+            <div class="swiper-slide">
+              <table>
+                <tr>
+                  <td><img src="Chocolate And Salted Caramel.jpg" width="300" height="400"></td>
+                  <td style="padding-right: 160px;">Chocolate and Salted Caramel Cake is a delectable dessert that combines rich chocolate flavors with a contrasting touch of sweet and salty caramel. This cake is a true indulgence for chocolate lovers and those
+                     with a sweet tooth.
+
+                    <br><br>The base of the cake is a moist and decadent chocolate sponge, made with high-quality cocoa powder and rich dark chocolate. The sponge is light and fluffy, yet dense enough to hold up the layers and toppings.
+                  </td>
+                </tr>
+                <h3>Chocolate And Salted Caramel Cake</h3>
+              </table>
+            </div>
+            <div class="swiper-slide">
+              <table>
+                <tr>
+                  <td><img src="White Chocolate cake.jpg" width="300" height="400"></td>
+                  <td style="padding-right: 160px;">White Chocolate Cake is a delightful dessert that showcases the creamy and sweet flavors of white chocolate. It is a perfect choice for those who love the smooth and luxurious taste of white chocolate and desire a 
+                    lighter alternative to traditional chocolate cake.
+
+                    <br><br>The cake itself is a tender and moist sponge, infused with the essence of white chocolate. The batter is prepared using high-quality white chocolate, which is melted and incorporated into the mixture. This results in a delicate and buttery cake 
+                    with a subtle white chocolate flavor that shines through in every bite.
+                  </td>
+                </tr>
+                <h3>White Chocolate Cake </h3>
+              </table>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="row">
+          <div class="column" style="text-align:center;padding-top:260px;font-size: 30px;">
+              <h2>Contact Us</h2>
+              <p>leave us a message</p>
+          </div>
+          <div class="column" style="padding-top: 100px;">
+            <form action="/action_page.php">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="firstname" placeholder="Your name..">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+              <label for="Flavours">Flavours</label>
+              <select id="Flavours" name="Flavours">
+                <option value="Madagascan Vanilla Cake">Madagascan Vanilla Cake</option>
+                <option value="Rich Chocolate Fudge Cake">Rich Chocolate Fudge Cake</option>
+                <option value="Chocolate And Salted Caramel">Chocolate And Salted Caramel Cake</option>
+                <option value="White Chocolate Cake">White Chocolate Cake</option>
+              </select>
+              <label for="subject">Subject</label>
+              <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+              <input type="submit" value="Submit">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="about" class="about" style="padding-top:80px">
+      <!-- about section content -->
+      <div class="about">
+        <div style="text-align:left">
+          <br><h1 style="background-color: #9FE2BF;">About</h1>
+          <p>
+            Welcome to my cake business portfolio! I am a passionate and experienced cake designer dedicated to creating extraordinary and delectable cakes for all occasions. With a keen eye for detail and a love for artistic expression, I strive to bring your cake 
+            dreams to life.<br><br>
+
+In my portfolio, you will find a collection of my finest cake designs that showcase my diverse range of skills and expertise. Each cake is a unique masterpiece, crafted with precision and care to ensure an unforgettable experience for you and your guests.<br><br>
+
+From elegant wedding cakes adorned with delicate sugar flowers to whimsical birthday cakes featuring intricate fondant designs, my portfolio highlights the versatility and creativity that I bring to every project. Whether you desire a classic and timeless cake or a 
+modern and innovative design, I am committed to exceeding your expectations.<br><br>
+
+My portfolio also showcases my ability to work with various themes and styles. From elaborate tiered cakes to custom-shaped sculpted creations, I can bring any idea to life. Whether it's a romantic garden-themed wedding, a magical fairytale-inspired birthday party, 
+or a sophisticated corporate event, I can create a cake that perfectly complements the ambiance and vision of your special occasion.<br><br>
+
+Quality and taste are equally important to me. Alongside stunning designs, my cakes are made with the finest ingredients, ensuring a delicious and memorable culinary experience for your guests. From classic flavors like vanilla and chocolate to unique combinations 
+and dietary restrictions, I offer a wide array of flavors and fillings to suit your preferences.<br><br>
+
+Thank you for considering my cake design services. I am thrilled to be a part of your celebrations and look forward to creating a cake that not only looks spectacular but also tastes divine. Please take a moment to browse through my portfolio and let the artistry 
+and craftsmanship speak for itself. I am confident that my cakes will leave a lasting impression and become the centerpiece of your special day.<br><br>
+          </p>
+        </div>
+
+  <div id="projects" class="projects" style="padding-top:80px">
+    <div class="projects">
+      <div style="text-align:left">
+        <br><h1 style="background-color: #9FE2BF;">Projects & Achievements</h1>
+        <p><h4>Project 1: Elegant Wedding Cake</h4>
+          For a high-profile wedding, I designed an elegant and sophisticated six-tier wedding cake. The cake featured delicate handcrafted sugar flowers in various shades of white and blush, meticulously arranged to create a cascading effect. The tiers were adorned 
+          with intricate lace patterns and edible pearl accents, adding a touch of luxury to the overall design. This project showcased my attention to detail and ability to create visually stunning cakes for special occasions.
+        </p>
+        <p>
+          <h4>Achievement 1: Featured in a Wedding Magazine</h4>
+          The elegant wedding cake I designed received recognition in a prestigious wedding magazine. It was featured as a centerpiece in an article highlighting the latest trends in wedding cake designs. This achievement not only validated my creative skills but also 
+          brought attention to my work, attracting new clients and opportunities.
+        </p>
+        <p>
+          <h4>Project 2: Whimsical Children's Birthday Cake</h4>
+          I was commissioned to create a whimsical birthday cake for a child's themed party. Inspired by the child's favorite storybook characters, I designed a three-tier cake that resembled a fairytale castle. The cake was decorated with vibrant fondant details, 
+          including turrets, windows, and a drawbridge. The colors were carefully selected to match the party's theme, creating a magical and enchanting atmosphere.
+        </p>
+        <p>
+          <h4>Achievement 2: Winner of a National Cake Decorating Competition</h4>
+          I participated in a national cake decorating competition and secured first place with my whimsical children's birthday cake design. The judges praised the creativity and craftsmanship involved in bringing the storybook characters to life. This achievement 
+          not only boosted my reputation as a skilled cake designer but also opened doors to collaborate with renowned event planners and expand my clientele.
+        </p>
+        <p>
+          <h4>Project 3: Customized Anniversary Cake</h4>
+          To commemorate a couple's 50th wedding anniversary, I created a customized cake that celebrated their journey through the years. The cake design incorporated elements from their wedding day, such as their initials and the same floral motifs used in their 
+          original wedding cake. It was a heartfelt tribute to their enduring love and served as a centerpiece during their anniversary celebration.
+        </p>
+        <p>
+          <h4>Achievement 3: Featured on a Television Show</h4>
+          The customized anniversary cake I designed caught the attention of a popular television show dedicated to showcasing extraordinary talents in the culinary world. I was invited to appear on the show, where I shared the story behind the cake and demonstrated 
+          my decorating techniques. The exposure on national television significantly elevated my profile and increased the demand for my services.
+        </p>
+        <p>These projects and achievements in my portfolio demonstrate my ability to create exquisite, personalized cakes for various occasions. Whether it's a grand wedding, a whimsical children's party, or a meaningful anniversary, I bring creativity, attention to 
+          detail, and a touch of magic to every cake I design.
+        </p>
+      </div>
+    </div>
+  </div>
+
+    <div class="footer">
+      <div class="col-1">
+        <h3>Find us on</h3>
+        <div class="social-icons">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-twitter"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-linkedin-in"></i>
+        </div>
+      </div>
+      <div class="col-2">
+        <h3>Contact</h3>
+        <p>081-2246789</p>
+        <br>
+        <p>All rights reserved @ inulicakie 2023</p>
+      </div>
+      <div class="col-3">
+        <h3>Flavours</h3>
+        <p>Madagascan Vanilla</p>
+        <p>Rich Chocolate Fudge Cake</p>
+        <p>Chocolate And Salted Caramel</p>
+        <p>White Chocolate</p>
+      </div>
+    </div>
+  </div>
+    <script>
+      var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+      });
+    
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+    
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Sticky Navigation Menu JS Code
+    let nav = document.querySelector("nav");
+    let scrollBtn = document.querySelector(".scroll-button a");
+    console.log(scrollBtn);
+    let val;
+    window.onscroll = function() {
+      if(document.documentElement.scrollTop > 20){
+        nav.classList.add("sticky");
+        scrollBtn.style.display = "block";
+      }else{
+        nav.classList.remove("sticky");
+        scrollBtn.style.display = "none";
+      }
+
+    }
+
+    // Side NavIgation Menu JS Code
+    let body = document.querySelector("body");
+    let navBar = document.querySelector(".navbar");
+    let menuBtn = document.querySelector(".menu-btn");
+    let cancelBtn = document.querySelector(".cancel-btn");
+    menuBtn.onclick = function(){
+      navBar.classList.add("active");
+      menuBtn.style.opacity = "0";
+      menuBtn.style.pointerEvents = "none";
+      body.style.overflow = "hidden";
+      scrollBtn.style.pointerEvents = "none";
+    }
+    cancelBtn.onclick = function(){
+      navBar.classList.remove("active");
+      menuBtn.style.opacity = "1";
+      menuBtn.style.pointerEvents = "auto";
+      body.style.overflow = "auto";
+      scrollBtn.style.pointerEvents = "auto";
+    }
+
+    // Side Navigation Bar Close While We Click On Navigation Links
+    let navLinks = document.querySelectorAll(".menu li a");
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener("click" , function() {
+        navBar.classList.remove("active");
+        menuBtn.style.opacity = "1";
+        menuBtn.style.pointerEvents = "auto";
+      });
+    }
+    </script>
+
+  </body>
+</html>
+
